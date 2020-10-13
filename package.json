@@ -1,0 +1,17 @@
+{
+  "name": "smoca-init-pg",
+  "version": "1.0.0",
+  "description": "Initializes PG database views for Work.com Multi-Org Connector",
+  "main": "index.js",
+  "dependencies": {
+    "pg": "^8.4.1",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node ./",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "RadialSpark",
+  "license": "ISC"
+}
