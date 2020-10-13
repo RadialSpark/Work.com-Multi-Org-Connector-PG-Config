@@ -32,9 +32,6 @@ const CREATE_DUMMY_VIEW_QUERY_BASE = `SELECT * FROM ( VALUES (${DUMMY_VALUES_PLA
  * @return PG Client
  */
 const initPgConnection = async dbConnectionString => {
-    //only required for local development
-    // const fs = require('fs');
-
     //database connection configuration
     const config = {
         connectionString: dbConnectionString,
@@ -67,13 +64,12 @@ const getSchemasQuery = (tableName) => {
  */
 const buildCreateViewQuery = (schemaNames, tableName) => {
     //to do todo: move to method
-    const schemaDefinition = require(`../static_resources/${tableName}.schema.json`);
+    const schemaDefinition = require(`../pg-schema/${tableName}.schema.json`);
 
     const queryList = schemaNames.map(schemaName => {
         const fieldQuery = Object.keys(schemaDefinition).map(field => `${schemaName}.${tableName}.${field}`).join(',');
 
-        console.log('field query: ', fieldQuery);
-        return `SELECT ${fieldQuery} FROM ${schemaName}.${tableName}`
+        return `SELECT ${fieldQuery} FROM ${schemaName}.${tableName}`;
     });
     
     return INIT_VIEW_QUERY_BASE
@@ -86,12 +82,6 @@ const buildCreateViewQuery = (schemaNames, tableName) => {
  * @return 
  */
 const buildCreateDummyViewQuery = (fields, tableName) => {
-    // const formattedFields = fields.map(field => field.toLowerCase());
-
-    // const values = formattedFields.map(field => `'${field}'`);
-    // const columns 
-    // console.log(formattedFields)
-
     const createViewQuery =  CREATE_DUMMY_VIEW_QUERY_BASE
         .replace(DUMMY_VALUES_PLACEHOLDER, Object.keys(fields).map(fieldName => `${fields[fieldName].default}::${fields[fieldName].type}`))
         .replace(DUMMY_COLUMN_NAMES_PLACEHOLDER, Object.keys(fields));

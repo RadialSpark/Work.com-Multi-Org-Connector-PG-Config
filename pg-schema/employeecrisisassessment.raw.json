@@ -1,0 +1,19 @@
+{
+    "assessment": "VARCHAR(255)",
+    "lastvieweddate": "timestamp without time zone",
+    "employeeid": "VARCHAR(18)",
+    "sourcesystem": "VARCHAR(255)",
+    "assessmentnumber": "VARCHAR(255)",
+    "lastmodifieddate": "timestamp without time zone",
+    "ownerid": "VARCHAR(18)",
+    "isdeleted": "boolean",
+    "systemmodstamp": "timestamp without time zone",
+    "assessmentdate": "timestamp without time zone",
+    "lastmodifiedbyid": "VARCHAR(18)",
+    "createddate": "timestamp without time zone",
+    "createdbyid": "VARCHAR(18)",
+    "sourceassessment": "VARCHAR(255)",
+    "lastreferenceddate": "timestamp without time zone",
+    "crisisid": "VARCHAR(18)",
+    "sfid": "VARCHAR(18)"
+}
