@@ -1,4 +1,10 @@
 const fs = require('fs');
+
+/**
+ * @description Builds schema with example values for the "dummy" PG views
+ * @param tableName Name of the PG table that the view will be built for
+ * @return void
+ */
 const buildWithExamples = (tableName) => {
     console.log('Building schema template for ' + tableName);
     const rawSchema = require(`../pg-schema/${tableName}.raw.json`);
@@ -25,8 +31,8 @@ const buildWithExamples = (tableName) => {
         }
     }
 
+    console.log(`Writing field names with sample data to pg-schema/${tableName}.schema.json`)
     fs.writeFileSync(`./pg-schema/${tableName}.schema.json`, JSON.stringify(result))
-    console.log(result)
 }
 
 buildWithExamples('employee');
