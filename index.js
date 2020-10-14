@@ -18,8 +18,8 @@ const run = async () => {
         //init PG Views for specified PG tables
         for (const tableName of TABLES_WITH_VIEWS) await pgService.initPgView(pgClient, tableName);
 
-        //terminate script
-        process.exit(0);
+        // //terminate script
+        // process.exit(0);
     }
     catch (err) {
         console.error('Error initializing PG DB for Work.com Multi-Org Connector: ', err)
