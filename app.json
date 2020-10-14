@@ -6,6 +6,5 @@
         "TESTENV": "TESTVALUE"
     },
     "addons": [
-        "heroku-postgresql"
     ]
 }
