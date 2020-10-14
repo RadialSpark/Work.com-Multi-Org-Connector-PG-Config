@@ -1,0 +1,11 @@
+{
+    "name": "Work.com Multi-Org Connector PG Init",
+    "description": "Initialize PostgreSQL database for the Work.com Multi-Org Connector.",
+    "repository": "https://github.com/RadialSpark/Work.com-Multi-Org-Connector-PG-Config",
+    "env": {
+        "TESTENV": "TESTVALUE"
+    },
+    "addons": [
+        "heroku-postgresql"
+    ]
+}
