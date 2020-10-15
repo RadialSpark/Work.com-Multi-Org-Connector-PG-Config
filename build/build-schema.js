@@ -11,22 +11,29 @@ const buildWithExamples = (tableName) => {
 
     const result = {};
     for (let prop in rawSchema) {
+        const type = rawSchema[prop];
+
+        let defaultValue;
         if (rawSchema[prop].includes('VARCHAR')) {
-            result[prop] = {
-                type: rawSchema[prop],
-                default: `'${prop}'`
-            };
+            defaultValue = `'${prop}'`;
         }
         else if (rawSchema[prop].includes('timestamp') || rawSchema[prop].includes('date')) {
-            result[prop] = {
-                type: rawSchema[prop],
-                default: 'NOW()'
-            }
+            defaultValue = 'NOW()';
+
         }
         else if (rawSchema[prop].includes('boolean')) {
+            defaultValue = true;
+
+        }
+        else if (rawSchema[prop].includes('integer')) {
+            defaultValue = 1;
+
+        }
+
+        if (type && defaultValue) {
             result[prop] = {
-                type: rawSchema[prop],
-                default: true
+                type,
+                default: defaultValue
             }
         }
     }
