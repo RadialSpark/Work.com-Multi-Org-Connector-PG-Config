@@ -19,15 +19,12 @@ const buildSchemaWithDefaultValues = (tableName) => {
         }
         else if (rawSchema[prop].includes('timestamp') || rawSchema[prop].includes('date')) {
             defaultValue = 'NOW()';
-
         }
         else if (rawSchema[prop].includes('boolean')) {
             defaultValue = true;
-
         }
         else if (rawSchema[prop].includes('integer')) {
-            defaultValue = 1;
-
+            defaultValue = 0;
         }
 
         if (type && defaultValue) {
