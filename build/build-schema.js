@@ -24,7 +24,7 @@ const buildSchemaWithDefaultValues = (tableName) => {
             defaultValue = true;
         }
         else if (rawSchema[prop].includes('integer')) {
-            defaultValue = 0;
+            defaultValue = 1;
         }
 
         if (type && defaultValue) {
