@@ -1,11 +1,11 @@
 const fs = require('fs');
 
 /**
- * @description Builds schema with example values for the "dummy" PG views
+ * @description Builds schema with default values for the "dummy" PG views
  * @param tableName Name of the PG table that the view will be built for
  * @return void
  */
-const buildWithExamples = (tableName) => {
+const buildSchemaWithDefaultValues = (tableName) => {
     console.log('Building schema template for ' + tableName);
     const rawSchema = require(`../pg-schema/${tableName}.raw.json`);
 
@@ -42,5 +42,5 @@ const buildWithExamples = (tableName) => {
     fs.writeFileSync(`./pg-schema/${tableName}.schema.json`, JSON.stringify(result))
 }
 
-buildWithExamples('employee');
-buildWithExamples('employeecrisisassessment');
+buildSchemaWithDefaultValues('employee');
+buildSchemaWithDefaultValues('employeecrisisassessment');
