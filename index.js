@@ -19,7 +19,8 @@ const run = async () => {
         for (const tableName of TABLES_WITH_VIEWS) await pgService.initPgView(pgClient, tableName);
 
         //keep process running
-        require('net').createServer().listen();
+        const PORT = process.env.PORT || 3000;
+        require('net').createServer().listen(PORT);
     }
     catch (err) {
         console.error('Error initializing PG DB for Work.com Multi-Org Connector: ', err)
