@@ -4,8 +4,11 @@
   "description": "Initializes PG database views for Work.com Multi-Org Connector",
   "main": "index.js",
   "dependencies": {
-    "pg": "^8.4.1",
-    "dotenv": "^8.2.0"
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^4.1.1",
+    "pg": "^8.4.1"
   },
   "devDependencies": {},
   "scripts": {
