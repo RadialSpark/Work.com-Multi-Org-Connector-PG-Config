@@ -8,8 +8,8 @@ const TABLE_NAMES = {
 
 //mapping of PG table name to PG View name
 const TABLE_TO_VIEW_NAME_MAPPINGS = {
-    employee: 'spoke_employees',
-    employeecrisisassessment: 'spoke_employeecrisisassessments'
+    employee: 'employees',
+    employeecrisisassessment: 'employeecrisisassessments'
 }
 
 /* ----- CONSTANTS ----- */
