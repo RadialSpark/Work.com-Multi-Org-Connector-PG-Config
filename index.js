@@ -46,8 +46,8 @@ const buildExternalObjectViews = async (req, res) => {
     catch (err) {
         console.error('Error initializing PG DB for Work.com Multi-Org Connector: ', err)
         
-        //terminate script with error code
-        process.exit(1);
+        res.status(500);
+        res.send(err);
     }
 }
 
