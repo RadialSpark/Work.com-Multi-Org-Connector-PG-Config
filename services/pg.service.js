@@ -45,7 +45,7 @@ const initPgConnection = async dbConnectionString => {
     const client = new Client(config);
     //attempt to connect to the PG database (database configuration defined in ENV)
     await client.connect();
-    
+
     console.log('Connected to PG database')
 
     return client;
@@ -115,11 +115,14 @@ const buildCreateViewQuery = (schemaNames, tableName) => {
 
     //generate a query string for each combination of schemaName & tableName
     const queryList = schemaNames.map(schemaName => {
-        const fieldQuery = Object.keys(schemaDefinition).map(field => `${schemaName}.${tableName}.${field}`).join(',');
+        const fieldQuery = Object.keys(schemaDefinition).map(field => `${schemaName}.${tableName}.${field}`);
 
-        return `SELECT ${fieldQuery} FROM ${schemaName}.${tableName}`;
+        //add primary key mapping of sfid ==> id columns
+        fieldQuery.push(`${schemaName}.${tableName}.sfid as id`);
+
+        return `SELECT ${fieldQuery.join(',')} FROM ${schemaName}.${tableName}`;
     });
-    
+
     //return formatted PG query
     return INIT_VIEW_QUERY_BASE
         .replace(VIEW_NAME_PLACEHOLDER, TABLE_TO_VIEW_NAME_MAPPINGS[tableName])
@@ -134,10 +137,19 @@ const buildCreateViewQuery = (schemaNames, tableName) => {
 const buildCreateDummyViewQuery = (tableName) => {
     const schemaDefinition = getSchemaFromFile(tableName);
 
+    //add primary key mapping with default value (preparation for mapping of sfid ==> id)
+    const schemaDefinitionWithPK = {
+        ...schemaDefinition,
+        id: {
+            type: 'VARCHAR(18)',
+            default: `'sfid'`
+        }
+    };
+
     //generate a query string that contains the pre-defined columns with placeholder values
-    const createViewQuery =  CREATE_DUMMY_VIEW_QUERY_BASE
-        .replace(DUMMY_VALUES_PLACEHOLDER, Object.keys(schemaDefinition).map(fieldName => `${schemaDefinition[fieldName].default}::${schemaDefinition[fieldName].type}`))
-        .replace(DUMMY_COLUMN_NAMES_PLACEHOLDER, Object.keys(schemaDefinition));
+    const createViewQuery = CREATE_DUMMY_VIEW_QUERY_BASE
+        .replace(DUMMY_VALUES_PLACEHOLDER, Object.keys(schemaDefinitionWithPK).map(fieldName => `${schemaDefinitionWithPK[fieldName].default}::${schemaDefinitionWithPK[fieldName].type}`))
+        .replace(DUMMY_COLUMN_NAMES_PLACEHOLDER, Object.keys(schemaDefinitionWithPK));
 
     //return formatted PG query
     return INIT_VIEW_QUERY_BASE

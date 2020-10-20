@@ -15,6 +15,5 @@
     "sourceassessment": "VARCHAR(255)",
     "lastreferenceddate": "timestamp without time zone",
     "crisisid": "VARCHAR(18)",
-    "sfid": "VARCHAR(18)",
-    "id": "integer"
+    "sfid": "VARCHAR(18)"
 }

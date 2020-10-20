@@ -43,6 +43,5 @@
     "email": "VARCHAR(80)",
     "workphone": "VARCHAR(40)",
     "lastreferenceddate": "timestamp without time zone",
-    "sfid": "VARCHAR(18)",
-    "id": "integer"
+    "sfid": "VARCHAR(18)"
 }
