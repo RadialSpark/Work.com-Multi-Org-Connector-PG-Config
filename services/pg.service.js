@@ -13,7 +13,7 @@ const TABLE_TO_VIEW_NAME_MAPPINGS = {
 }
 
 /* ----- CONSTANTS ----- */
-const SPOKE_SCHEMA_IDENTIFIER = 'spoke00d';
+const SPOKE_SCHEMA_IDENTIFIER = 'spoke';
 
 //PLACEHOLDER VALUES (used to construct PG queries)
 const VIEW_NAME_PLACEHOLDER = '{VIEW_NAME_PLACEHOLDER}';
@@ -117,8 +117,12 @@ const buildCreateViewQuery = (schemaNames, tableName) => {
     const queryList = schemaNames.map(schemaName => {
         const fieldQuery = Object.keys(schemaDefinition).map(field => `${schemaName}.${tableName}.${field}`);
 
-        //add primary key mapping of sfid ==> id columns
+        //add primary key mapping of sfid ==> id column
         fieldQuery.push(`${schemaName}.${tableName}.sfid as id`);
+
+        //add column for mapping of SF Org ID --> orgid
+        const orgid = schemaName.split(SPOKE_SCHEMA_IDENTIFIER)[1];
+        fieldQuery.push(`'${orgid}'::VARCHAR(18) as orgid`)
 
         return `SELECT ${fieldQuery.join(',')} FROM ${schemaName}.${tableName}`;
     });
@@ -137,12 +141,16 @@ const buildCreateViewQuery = (schemaNames, tableName) => {
 const buildCreateDummyViewQuery = (tableName) => {
     const schemaDefinition = getSchemaFromFile(tableName);
 
-    //add primary key mapping with default value (preparation for mapping of sfid ==> id)
+    //add hard-coded columns for id (primary key) and orgid (SF Org ID)
     const schemaDefinitionWithPK = {
         ...schemaDefinition,
         id: {
             type: 'VARCHAR(18)',
             default: `'sfid'`
+        },
+        orgid: {
+            type: 'VARCHAR(18)',
+            default: `'orgid'`
         }
     };
 
