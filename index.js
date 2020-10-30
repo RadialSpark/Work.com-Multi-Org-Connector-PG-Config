@@ -51,5 +51,8 @@ const buildExternalObjectViews = async (req, res) => {
     }
 }
 
+//init with view on initial deploy
+buildExternalObjectViews();
+
 //boot app
 start();
