@@ -41,7 +41,7 @@ const buildExternalObjectViews = async (req, res) => {
         for (const tableName of TABLES_WITH_VIEWS) await pgService.initPgView(pgClient, tableName);
 
         //send success response
-        res.sendStatus(204);
+        if (res) res.sendStatus(204);
     }
     catch (err) {
         console.error('Error initializing PG DB for Work.com Multi-Org Connector: ', err)
