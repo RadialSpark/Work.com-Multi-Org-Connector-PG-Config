@@ -11,7 +11,7 @@ const TABLE_NAMES = {
 const TABLE_TO_VIEW_NAME_MAPPINGS = {
     employee: 'employees',
     employeecrisisassessment: 'employeecrisisassessments',
-    organization: 'organization'
+    organization: 'organizations'
 }
 
 /* ----- CONSTANTS ----- */
