@@ -3,13 +3,15 @@ const { Client } = require('pg');
 //PG table names
 const TABLE_NAMES = {
     EMPLOYEE: 'employee',
-    EMPLOYEE_CRISIS_ASSESSMENT: 'employeecrisisassessment'
+    EMPLOYEE_CRISIS_ASSESSMENT: 'employeecrisisassessment',
+    ORGANIZATION: 'organization'
 };
 
 //mapping of PG table name to PG View name
 const TABLE_TO_VIEW_NAME_MAPPINGS = {
     employee: 'employees',
-    employeecrisisassessment: 'employeecrisisassessments'
+    employeecrisisassessment: 'employeecrisisassessments',
+    organization: 'organizations'
 }
 
 /* ----- CONSTANTS ----- */
@@ -26,6 +28,9 @@ const DUMMY_COLUMN_NAMES_PLACEHOLDER = '{DUMMY_COLUMN_NAMES_PLACEHOLDER}';
 const INIT_VIEW_QUERY_BASE = `CREATE OR REPLACE VIEW public.${VIEW_NAME_PLACEHOLDER} AS ${CREATE_VIEW_QUERY_PLACEHOLDER}`;
 const CREATE_DUMMY_VIEW_QUERY_BASE = `SELECT * FROM ( VALUES (${DUMMY_VALUES_PLACEHOLDER}) ) AS r (${DUMMY_COLUMN_NAMES_PLACEHOLDER})`;
 const GET_SCHEMAS_QUERY_BASE = `SELECT * from information_schema.tables where table_type='BASE TABLE' AND table_name='${TABLE_NAME_PLACEHOLDER}' AND table_schema LIKE '${SPOKE_SCHEMA_IDENTIFIER}%'`
+
+//build mapping of Salesforce Organization ID to Salesforce Organization information
+let organizationMap = {};
 
 /**
  * @description Creates a client connection to a PG database
@@ -105,6 +110,24 @@ const buildGetSchemasQuery = (tableName) => {
 }
 
 /**
+ * @description Initializes view with Salesforce Organization information and stores mapping of SF Org ID to SF Org Name for view creation
+ * @param pgClient Client connection to the configured PG database
+ * @return void
+ */
+const initOrganizationInformation = async (pgClient) => {
+    //init PG View for Salesforce Organizations
+    await initPgView(pgClient, TABLE_NAMES.ORGANIZATION);
+
+    //query the PG view to build organizationMap
+    const organizations = await pgClient.query('SELECT * from public.organization');
+    if (organizations && organizations.rows && organizations.rows.length > 0) {
+        organizations.rows.forEach(org => {
+            organizationMap[org.orgid] = org.name;
+        });
+    }
+}
+
+/**
  * @description Constructs and returns PG query that is used to create a PG View that contains data from schemaNames[*].tableName
  * @param schemaNames List of PG schema names that should be aggreggated into the PG View
  * @param tableName PG table name
@@ -124,6 +147,9 @@ const buildCreateViewQuery = (schemaNames, tableName) => {
         const orgid = schemaName.split(SPOKE_SCHEMA_IDENTIFIER)[1];
         fieldQuery.push(`'${orgid}'::VARCHAR(18) as orgid`)
 
+        //append the Salesforce organization name to the view
+        fieldQuery.push(`'${organizationMap[orgid]}'::VARCHAR(255) as orgname`)
+
         return `SELECT ${fieldQuery.join(',')} FROM ${schemaName}.${tableName}`;
     });
 
@@ -141,7 +167,7 @@ const buildCreateViewQuery = (schemaNames, tableName) => {
 const buildCreateDummyViewQuery = (tableName) => {
     const schemaDefinition = getSchemaFromFile(tableName);
 
-    //add hard-coded columns for id (primary key) and orgid (SF Org ID)
+    //add hard-coded columns for id (primary key), orgid (SF Org ID), and Salesforce Organization name
     const schemaDefinitionWithPK = {
         ...schemaDefinition,
         id: {
@@ -151,6 +177,10 @@ const buildCreateDummyViewQuery = (tableName) => {
         orgid: {
             type: 'VARCHAR(18)',
             default: `'orgid'`
+        },
+        orgname: {
+            type: 'VARCHAR(255)',
+            default: '`orgname`'
         }
     };
 
@@ -181,5 +211,6 @@ const query = async (client, query) => {
 module.exports = {
     initPgConnection,
     initPgView,
+    initOrganizationInformation,
     TABLE_NAMES
 }

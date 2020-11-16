@@ -41,3 +41,4 @@ const buildSchemaWithDefaultValues = (tableName) => {
 
 buildSchemaWithDefaultValues('employee');
 buildSchemaWithDefaultValues('employeecrisisassessment');
+buildSchemaWithDefaultValues('organization');
