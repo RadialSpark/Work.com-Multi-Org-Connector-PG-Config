@@ -8,7 +8,7 @@
         "default": "NOW()"
     },
     "name": {
-        "type": "VARCHAR(255)",
+        "type": "VARCHAR(80)",
         "default": "'name'"
     },
     "systemmodstamp": {
