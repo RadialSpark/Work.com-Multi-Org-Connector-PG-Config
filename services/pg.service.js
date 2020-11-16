@@ -148,7 +148,7 @@ const buildCreateViewQuery = (schemaNames, tableName) => {
         fieldQuery.push(`'${orgid}'::VARCHAR(18) as orgid`)
 
         //append the Salesforce organization name to the view
-        fieldQuery.push(`'${organizationMap[orgid]}'::VARCHAR(255) as orgname`)
+        fieldQuery.push(`'${organizationMap[orgid]}'::VARCHAR(80) as orgname`)
 
         return `SELECT ${fieldQuery.join(',')} FROM ${schemaName}.${tableName}`;
     });
@@ -179,7 +179,7 @@ const buildCreateDummyViewQuery = (tableName) => {
             default: `'orgid'`
         },
         orgname: {
-            type: 'VARCHAR(255)',
+            type: 'VARCHAR(80)',
             default: `'orgname'`
         }
     };
