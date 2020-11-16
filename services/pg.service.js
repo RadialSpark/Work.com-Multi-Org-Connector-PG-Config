@@ -180,7 +180,7 @@ const buildCreateDummyViewQuery = (tableName) => {
         },
         orgname: {
             type: 'VARCHAR(255)',
-            default: '`orgname`'
+            default: `'orgname'`
         }
     };
 
