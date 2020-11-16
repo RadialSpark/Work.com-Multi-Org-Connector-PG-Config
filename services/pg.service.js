@@ -119,7 +119,7 @@ const initOrganizationInformation = async (pgClient) => {
     await initPgView(pgClient, TABLE_NAMES.ORGANIZATION);
 
     //query the PG view to build organizationMap
-    const organizations = await pgClient.query('SELECT * from public.organization');
+    const organizations = await pgClient.query(`SELECT * from public.${TABLE_TO_VIEW_NAME_MAPPINGS[TABLE_NAMES.ORGANIZATION]}`);
     if (organizations && organizations.rows && organizations.rows.length > 0) {
         organizations.rows.forEach(org => {
             organizationMap[org.orgid] = org.name;
