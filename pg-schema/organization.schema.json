@@ -1,0 +1,18 @@
+{
+    "sfid": {
+        "type": "VARCHAR(18)",
+        "default": "'sfid'"
+    },
+    "createddate": {
+        "type": "timestamp without time zone",
+        "default": "NOW()"
+    },
+    "name": {
+        "type": "VARCHAR(80)",
+        "default": "'name'"
+    },
+    "systemmodstamp": {
+        "type": "timestamp without time zone",
+        "default": "NOW()"
+    }
+}

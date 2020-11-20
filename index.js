@@ -37,6 +37,9 @@ const buildExternalObjectViews = async (req, res) => {
         //init connection to PG DB
         const pgClient = await pgService.initPgConnection(process.env.DATABASE_URL);
 
+        //init organization information
+        await pgService.initOrganizationInformation(pgClient);
+
         //init PG Views for specified PG tables
         for (const tableName of TABLES_WITH_VIEWS) await pgService.initPgView(pgClient, tableName);
 

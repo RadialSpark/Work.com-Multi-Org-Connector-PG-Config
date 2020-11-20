@@ -1,0 +1,6 @@
+{
+    "sfid": "VARCHAR(18)",
+    "createddate": "timestamp without time zone",
+    "name": "VARCHAR(80)",
+    "systemmodstamp": "timestamp without time zone"
+}
