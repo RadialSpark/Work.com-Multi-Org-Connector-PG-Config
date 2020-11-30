@@ -1,6 +1,5 @@
 {
     "employeestatus": "VARCHAR(255)",
-    "wkcc__individualrole__c": "VARCHAR(255)",
     "middlename": "VARCHAR(40)",
     "lastname": "VARCHAR(80)",
     "gender": "VARCHAR(255)",
