@@ -1,1 +1,70 @@
-{"assessment":{"type":"VARCHAR(255)","default":"'assessment'"},"lastvieweddate":{"type":"timestamp without time zone","default":"NOW()"},"employeeid":{"type":"VARCHAR(18)","default":"'employeeid'"},"sourcesystem":{"type":"VARCHAR(255)","default":"'sourcesystem'"},"assessmentnumber":{"type":"VARCHAR(255)","default":"'assessmentnumber'"},"lastmodifieddate":{"type":"timestamp without time zone","default":"NOW()"},"ownerid":{"type":"VARCHAR(18)","default":"'ownerid'"},"isdeleted":{"type":"boolean","default":true},"systemmodstamp":{"type":"timestamp without time zone","default":"NOW()"},"assessmentdate":{"type":"timestamp without time zone","default":"NOW()"},"lastmodifiedbyid":{"type":"VARCHAR(18)","default":"'lastmodifiedbyid'"},"createddate":{"type":"timestamp without time zone","default":"NOW()"},"createdbyid":{"type":"VARCHAR(18)","default":"'createdbyid'"},"sourceassessment":{"type":"VARCHAR(255)","default":"'sourceassessment'"},"lastreferenceddate":{"type":"timestamp without time zone","default":"NOW()"},"crisisid":{"type":"VARCHAR(18)","default":"'crisisid'"},"sfid":{"type":"VARCHAR(18)","default":"'sfid'"}}
+{
+    "assessment": {
+        "type": "VARCHAR(255)",
+        "default": "'assessment'"
+    },
+    "lastvieweddate": {
+        "type": "timestamp without time zone",
+        "default": "NOW()"
+    },
+    "employeeid": {
+        "type": "VARCHAR(18)",
+        "default": "'employeeid'"
+    },
+    "sourcesystem": {
+        "type": "VARCHAR(255)",
+        "default": "'sourcesystem'"
+    },
+    "assessmentnumber": {
+        "type": "VARCHAR(255)",
+        "default": "'assessmentnumber'"
+    },
+    "lastmodifieddate": {
+        "type": "timestamp without time zone",
+        "default": "NOW()"
+    },
+    "ownerid": {
+        "type": "VARCHAR(18)",
+        "default": "'ownerid'"
+    },
+    "isdeleted": {
+        "type": "boolean",
+        "default": true
+    },
+    "systemmodstamp": {
+        "type": "timestamp without time zone",
+        "default": "NOW()"
+    },
+    "assessmentdate": {
+        "type": "timestamp without time zone",
+        "default": "NOW()"
+    },
+    "lastmodifiedbyid": {
+        "type": "VARCHAR(18)",
+        "default": "'lastmodifiedbyid'"
+    },
+    "createddate": {
+        "type": "timestamp without time zone",
+        "default": "NOW()"
+    },
+    "createdbyid": {
+        "type": "VARCHAR(18)",
+        "default": "'createdbyid'"
+    },
+    "sourceassessment": {
+        "type": "VARCHAR(255)",
+        "default": "'sourceassessment'"
+    },
+    "lastreferenceddate": {
+        "type": "timestamp without time zone",
+        "default": "NOW()"
+    },
+    "crisisid": {
+        "type": "VARCHAR(18)",
+        "default": "'crisisid'"
+    },
+    "sfid": {
+        "type": "VARCHAR(18)",
+        "default": "'sfid'"
+    }
+}
